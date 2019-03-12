@@ -24,7 +24,7 @@ y = []
 
 for i in range(len(res)):
 	y.append(res[i][0]/dx)
-query = " UPDATE test2 SET rangeA = CONCAT('From ', (SELECT CAST(totcalls/%f AS SIGNED))*%f, ' to ', (SELECT CAST(totcalls/%f AS SIGNED))*%f + %f);" 
+query = " UPDATE test2 SET rangeA = CONCAT('From ', (SELECT CAST(totcalls/%6.2f AS SIGNED))*%6.2f, ' to ', (SELECT CAST(totcalls/%6.2f AS SIGNED))*%6.2f + %6.2f);" 
 cur.execute(query %(dx, dx, dx, dx,dx))
 plt.hist(y, bins = n_Points)
 
