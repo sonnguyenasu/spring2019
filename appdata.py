@@ -28,8 +28,8 @@ plt.show()
 '''
 train_data.pop('price')
 test_data.pop('price')
-train_label = train_data.pop('installs')
-test_label = test_data.pop('installs')
+train_label = train_data.pop('reviews')
+test_label = test_data.pop('reviews')
 
 train_stats = train_data.describe()
 train_stats = train_stats.transpose()
@@ -53,7 +53,7 @@ class PrintDot(keras.callbacks.Callback):
 		if epoch % 100 == 0:
 			print('')
 		print('.', end = ' ')
-early_stop = keras.callbacks.EarlyStopping(monitor = 'val_loss', patience = 10)
+#early_stop = keras.callbacks.EarlyStopping(monitor = 'val_loss', patience = 10)
 history = model.fit(normed_train, train_label, epochs = 1000, validation_split = 0.2, verbose = 0, callbacks = [PrintDot()])
 
 def plot_history(history):
@@ -74,17 +74,22 @@ def plot_history(history):
 	#plt.show()
 plot_history(history)
 
-loss, mae, mse = model.evaluate(normed_train, test_label, verbose = 0)
-print("Testing set mean abs error {:5.2f}".format(mae))
 
-train_prediction = model.predict(normed_train).flatten()
+test_prediction = model.predict(normed_test).flatten()
 plt.figure()
-plt.scatter(train_label, train_prediction)
+
+plt.scatter(test_label, test_prediction)
 plt.xlabel('True')
 plt.ylabel('Predict')
 plt.axis('square')
 plt.axis('equal')
 plt.xlim([0, plt.xlim()[1]])
 plt.ylim([0, plt.ylim()[1]])
-plt.plot([-100000, 100000], [-100000, 100000])
+plt.plot([-10000, 1000000000], [-10000, 1000000000])
+
+print(model.evaluate(normed_test, test_label))
+
+plt.figure()
+error = test_prediction - test_label
+plt.hist(error, bins = 10000)
 plt.show()
