@@ -6,7 +6,7 @@ import os
 import sys
 connection = mc.connect(user = 'root', password = 'password', database = 'nobel')
 cursor = connection.cursor()
-query = "SELECT OrganizationName,COUNT(*) FROM archive WHERE Category = '%s' GROUP BY OrganizationName ORDER BY COUNT(*) DESC;"
+query = "SELECT BirthCountry,COUNT(*) FROM archive WHERE Category = '%s' GROUP BY BirthCountry ORDER BY COUNT(*) DESC;"
 cursor.execute(query%sys.argv[1])
 #cursor.execute(query)
 res = cursor.fetchall()
