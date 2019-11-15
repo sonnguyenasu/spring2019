@@ -30,6 +30,6 @@ def get_name(database_file, actor_id):
 	
 	return results[0]
 
-#print("Full name for actor:", get_name('sakila', "1")[0], get_name('sakila', "1")[1])
+
 print(select("actor_id","actor", " ORDER BY actor_id"))
 	
